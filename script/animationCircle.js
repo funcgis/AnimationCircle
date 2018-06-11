@@ -1,8 +1,8 @@
 /*
  * @Author: funcgis 
  * @Date: 2018-06-10 15:22:24 
- * @Last Modified by: funcgis
- * @Last Modified time: 2018-06-10 16:48:51
+ * @Last Modified by: chenlong
+ * @Last Modified time: 2018-06-11 16:10:12
  * Three.js Animation Circle Plugin
  */
 
@@ -52,6 +52,10 @@ var AnimationCircle = function(scene, renderer, camera, position, rotation, radi
 
         this._circleRingTwo = new THREE.Mesh( circleRingTwoGeometry, materialRingTwo );
         this._circleRingTwo.material.opacity = 0;
+        
+        this._circleMain.position = this.position;
+        this._circleRingOne.position = this.position;
+        this._circleRingTwo.position = this.position;
 
         this.scene.add( this._circleMain );
         this.scene.add( this._circleRingOne );
