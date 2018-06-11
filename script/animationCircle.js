@@ -1,8 +1,8 @@
 /*
  * @Author: funcgis 
  * @Date: 2018-06-10 15:22:24 
- * @Last Modified by: chenlong
- * @Last Modified time: 2018-06-11 17:26:08
+ * @Last Modified by: funcgis
+ * @Last Modified time: 2018-06-11 22:36:32
  * Three.js Animation Circle Plugin
  */
 
@@ -58,13 +58,11 @@ var AnimationCircle = function(scene, renderer, camera, position, rotation, radi
         this._circleRingOne.position.set(this.position.x,this.position.y,this.position.z);
         this._circleRingTwo.position.set(this.position.x,this.position.y,this.position.z);
 
-        // materialMain.needsUpdate=true;
-        // materialRingOne.needsUpdate=true;
-        // materialRingTwo.needsUpdate=true;
-
         this.scene.add( this._circleMain );
         this.scene.add( this._circleRingOne );
         this.scene.add( this._circleRingTwo );
+
+        console.log(this._circleMain);
     };
 
     var that = this;
@@ -125,9 +123,9 @@ AnimationCircle.prototype.StopAnimation = function(){
  * @param {*} position 
  */
 AnimationCircle.prototype.SetPosition = function(position){
-    this._circleMain.position.set(this.position.x,this.position.y,this.position.z);
-    this._circleRingOne.position.set(this.position.x,this.position.y,this.position.z);
-    this._circleRingTwo.position.set(this.position.x,this.position.y,this.position.z);
+    this._circleMain.position.set(position.x,position.y,position.z);
+    this._circleRingOne.position.set(position.x,position.y,position.z);
+    this._circleRingTwo.position.set(position.x,position.y,position.z);
 }
 
 /**
@@ -135,9 +133,9 @@ AnimationCircle.prototype.SetPosition = function(position){
  * @param {*} rotation 
  */
 AnimationCircle.prototype.SetRotation = function(rotation){
-    this._circleMain.rotation.set(this.rotation.x,this.rotation.y,this.rotation.z);
-    this._circleRingOne.rotation.set(this.rotation.x,this.rotation.y,this.rotation.z);
-    this._circleRingTwo.rotation.set(this.rotation.x,this.rotation.y,this.rotation.z);
+    this._circleMain.rotation.set(rotation.x,rotation.y,rotation.z);
+    this._circleRingOne.rotation.set(rotation.x,rotation.y,rotation.z);
+    this._circleRingTwo.rotation.set(rotation.x,rotation.y,rotation.z);
 }
 
 /**

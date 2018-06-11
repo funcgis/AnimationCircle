@@ -4,10 +4,11 @@
 		<style>
 			body { margin: 0; }
 			canvas { width: 100%; height: 90% }
+			#operations{width: 100%;height: 10%;}
+			#operations>input{margin-left: 20px;margin-top: 20px}
 		</style>
 	</head>
 	<body>
-
 		<script src="js/three.js"></script>
 		<!-- <script src="js/stats.min.js"></script> -->
 		<script src="script/animationCircle.js"></script>
@@ -21,7 +22,7 @@
 			scene.add(camera);
 
 			var renderer = new THREE.WebGLRenderer();
-			renderer.setSize( window.innerWidth, window.innerHeight );
+			renderer.setSize( window.innerWidth, window.innerHeight*0.9 );
 			document.body.appendChild( renderer.domElement );
 
 			//创建圆，并开始动画
@@ -44,25 +45,63 @@
 			// //显示帧率
 			// stats = new Stats();
 			// container.appendChild( stats.dom );
-			var animate = function () {
-				requestAnimationFrame( animate );
+			// var animate = function () {
+			// 	requestAnimationFrame( animate );
 
-				renderer.render( scene, camera );
-			};
+			// 	renderer.render( scene, camera );
+			// };
 
-			animate();
+			// animate();
 
-			// renderer.render( scene, camera );
+			renderer.render( scene, camera );
+
+
+			//功能函数测试
+
+
+			function changCircleColor(){
+				animationCircleRed.SetColor( new THREE.Color( 0xDC06F1 ));
+			}
+
+			//已测试
+			function changeCirclePosition(){
+				animationCircleGreen.SetPosition(new THREE.Vector3( 3, 0, 3));
+			}
+
+			//已测试
+			function changeCircleRotation(){
+				animationCircleBlue.SetRotation(new THREE.Vector3( 0, 1, 0));
+			}
+
+			//已测试
+			function changeAnimationSpeed(){
+				animationCircleRed.SetSpeed(0.03);
+			}
+
+			//已测试
+			function changeCircleRadius(){
+				animationCircleGreen.SetRadius(0.5);
+			}
+
+			//已测试
+			function changeCircleSegments(){
+				animationCircleRed.SetSegments(10);
+			}
+			
+			//已测试
+			function beginOrStopAnimation(){
+				animationCircleGreen.StopAnimation();
+			}
 		</script>
 
-		<div id="opertion" style="width: 100%;height: 10%;">
-			<button value="修改颜色"></button>
-			<button value="改变位置"></button>
-			<button value="改变角度"></button>
-			<button value="改变速度"></button>
-			<button value="改变半径"></button>
-			<button value="改变节点数"></button>
-			<button value="开始\结束 动画"></button>
+		<div id="operations">
+			<input type="button" value="修改颜色" onclick="changCircleColor()"></input>
+			<input type="button" value="改变位置" onclick="changeCirclePosition()"></input>
+			<input type="button" value="改变角度" onclick="changeCircleRotation()"></input>
+			<input type="button" value="改变速度" onclick="changeAnimationSpeed()"></input>
+			<input type="button" value="改变半径" onclick="changeCircleRadius()"></input>
+			<input type="button" value="改变节点数" onclick="changeCircleSegments()"></input>
+			<input type="button" value="开始\结束 动画" onclick="beginOrStopAnimation()"></input>
 		</div>
 	</body>
 </html>
