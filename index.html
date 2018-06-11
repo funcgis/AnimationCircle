@@ -3,20 +3,20 @@
 		<title>My first three.js app</title>
 		<style>
 			body { margin: 0; }
-			canvas { width: 100%; height: 100% }
+			canvas { width: 100%; height: 90% }
 		</style>
 	</head>
 	<body>
-		<script src="js/three.js"></script>
-		<script src="js/stats.min.js"></script>
 
+		<script src="js/three.js"></script>
+		<!-- <script src="js/stats.min.js"></script> -->
 		<script src="script/animationCircle.js"></script>
 		<script>
 			var scene = new THREE.Scene();
 			scene.background = new THREE.Color( 0xf0f0f0 );
 
 			var camera=new THREE.PerspectiveCamera(45,window.innerWidth/window.innerHeight,0.1,1000);
-			camera.position.z = 5;
+			camera.position.z = 10;
 			camera.lookAt(scene.position);
 			scene.add(camera);
 
@@ -25,19 +25,44 @@
 			document.body.appendChild( renderer.domElement );
 
 			//创建圆，并开始动画
-			var animationCircle = new AnimationCircle(scene,renderer, camera,new THREE.Vector3( 0, 0, 0),new THREE.Vector3( 0, 0, 0),1,64,0xFF0017,0.01);
-			animationCircle.BeginAnimation();
+			var animationCircleRed = new AnimationCircle(scene,renderer, camera,new THREE.Vector3( 0, 3, 0),new THREE.Vector3( 0, 0, 0),1,64,0xFF0017,0.01);
+			animationCircleRed.BeginAnimation();
 			
-			//屏幕面板
-			container = document.createElement( 'div' );
-			document.body.appendChild( container );
-			container.appendChild( renderer.domElement );
 
-			//显示帧率
-			stats = new Stats();
-			container.appendChild( stats.dom );
+			var animationCircleGreen = new AnimationCircle(scene,renderer, camera,new THREE.Vector3( 3, 0, 0),new THREE.Vector3( 0, 0, 0),1,64,0x81C951,0.02);
+			animationCircleGreen.BeginAnimation();
 
-			renderer.render( scene, camera );
+
+			var animationCircleBlue = new AnimationCircle(scene,renderer, camera,new THREE.Vector3( 0, 0, 3),new THREE.Vector3( 0, 0, 0),1,64,0x398DEE,0.015);
+			animationCircleBlue.BeginAnimation();
+			
+			// //屏幕面板
+			// container = document.createElement( 'div' );
+			// document.body.appendChild( container );
+			// container.appendChild( renderer.domElement );
+
+			// //显示帧率
+			// stats = new Stats();
+			// container.appendChild( stats.dom );
+			var animate = function () {
+				requestAnimationFrame( animate );
+
+				renderer.render( scene, camera );
+			};
+
+			animate();
+
+			// renderer.render( scene, camera );
 		</script>
+
+		<div id="opertion" style="width: 100%;height: 10%;">
+			<button value="修改颜色"></button>
+			<button value="改变位置"></button>
+			<button value="改变角度"></button>
+			<button value="改变速度"></button>
+			<button value="改变半径"></button>
+			<button value="改变节点数"></button>
+			<button value="开始\结束 动画"></button>
+		</div>
 	</body>
 </html>
