@@ -2,13 +2,15 @@
  * @Author: funcgis 
  * @Date: 2018-06-10 15:22:24 
  * @Last Modified by: chenlong
- * @Last Modified time: 2018-06-12 12:28:38
+ * @Last Modified time: 2018-06-12 15:20:03
  * Three.js Animation Circle Plugin
  */
 
 /**
  * Animation Circle Object
  * @param {*} scene Three.js scene Object 
+ * @param {*} renderer Three.js renderer object
+ * @param {*} camera Three.js camera object
  * @param {*} position Circle Animation's Position
  * @param {*} rotation Circle Animation's Rotation
  * @param {*} radius Circle's Radius
@@ -27,7 +29,7 @@ var AnimationCircle = function(scene, renderer, camera, position, rotation, radi
     this.speed = speed;
     this.position = position;
     this.rotation = rotation;
-
+    //inner properties
     this._ifAnimate = false;
     this._ifAnimating = false;
     this._circleMain = null;
@@ -36,6 +38,7 @@ var AnimationCircle = function(scene, renderer, camera, position, rotation, radi
 
     //init Circle Animation Objects
     this._init = function(){
+        //create geometry and material
         var circleMainGeometry = new THREE.CircleBufferGeometry( this.radius, this.segments );
         var circleRingOneGeometry = new THREE.CircleBufferGeometry( 0.001, this.segments );
         var circleRingTwoGeometry = new THREE.CircleBufferGeometry( this.radius/2, this.segments );
@@ -60,19 +63,19 @@ var AnimationCircle = function(scene, renderer, camera, position, rotation, radi
             depthTest:false,
             side: THREE.DoubleSide
         });
-
+        //create main circle
         this._circleMain = new THREE.Mesh( circleMainGeometry, materialMain );
-
+        //create RingOne circle
         this._circleRingOne = new THREE.Mesh( circleRingOneGeometry, materialRingOne );
         this._circleRingOne.material.opacity = 0;
-
+        //create RingTwo circle
         this._circleRingTwo = new THREE.Mesh( circleRingTwoGeometry, materialRingTwo );
         this._circleRingTwo.material.opacity = 0;
-        
+        //create circle object
         this._circleMain.position.set(this.position.x,this.position.y,this.position.z);
         this._circleRingOne.position.set(this.position.x,this.position.y,this.position.z);
         this._circleRingTwo.position.set(this.position.x,this.position.y,this.position.z);
-
+        //add circle to scene
         this.scene.add( this._circleMain );
         this.scene.add( this._circleRingOne );
         this.scene.add( this._circleRingTwo );
