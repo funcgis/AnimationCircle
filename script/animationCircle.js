@@ -2,7 +2,7 @@
  * @Author: funcgis 
  * @Date: 2018-06-10 15:22:24 
  * @Last Modified by: chenlong
- * @Last Modified time: 2018-06-12 09:59:12
+ * @Last Modified time: 2018-06-12 10:44:58
  * Three.js Animation Circle Plugin
  */
 
@@ -42,9 +42,27 @@ var AnimationCircle = function(scene, renderer, camera, position, rotation, radi
         var circleMainGeometry = new THREE.CircleBufferGeometry( this.radius, this.segments );
         var circleRingOneGeometry = new THREE.CircleBufferGeometry( 0.001, this.segments );
         var circleRingTwoGeometry = new THREE.CircleBufferGeometry( this.radius/2, this.segments );
-        var materialMain = new THREE.MeshBasicMaterial( { color: color, opacity: 0.3, transparent: true, side: THREE.DoubleSide} );
-        var materialRingOne = new THREE.MeshBasicMaterial( { color: color, opacity: 0, transparent: true, side: THREE.DoubleSide} );
-        var materialRingTwo = new THREE.MeshBasicMaterial( { color: color, opacity: 0, transparent: true, side: THREE.DoubleSide} );
+        var materialMain = new THREE.MeshBasicMaterial({ 
+            color: color, 
+            opacity: 0.3, 
+            transparent: true, 
+            depthTest:false,
+            side: THREE.DoubleSide
+        });
+        var materialRingOne = new THREE.MeshBasicMaterial({ 
+            color: color, 
+            opacity: 0, 
+            transparent: true, 
+            depthTest:false,
+            side: THREE.DoubleSide
+        });
+        var materialRingTwo = new THREE.MeshBasicMaterial({ 
+            color: color, 
+            opacity: 0, 
+            transparent: true, 
+            depthTest:false,
+            side: THREE.DoubleSide
+        });
 
         this._circleMain = new THREE.Mesh( circleMainGeometry, materialMain );
 
@@ -67,7 +85,7 @@ var AnimationCircle = function(scene, renderer, camera, position, rotation, radi
     //Circle Animation function
     this._animate = function(){
         requestAnimationFrame( that._animate );
-        // stats.begin();
+        stats.begin();
         //do animate
         if(that._ifAnimate){
             if(that._circleRingOne.geometry.boundingSphere.radius<that.radius){
@@ -94,7 +112,7 @@ var AnimationCircle = function(scene, renderer, camera, position, rotation, radi
             }
         }
         renderer.render( that.scene, that.camera );
-        // stats.end();
+        stats.end();
     };
 
     //init Circle Animation
@@ -173,4 +191,22 @@ AnimationCircle.prototype.SetColor = function(color){
     this._circleMain.material.color = color;
     this._circleRingOne.material.color = color;
     this._circleRingTwo.material.color = color;
+}
+
+/**
+ * remove from scene and dispose CircleAnimation Object 
+ */
+AnimationCircle.prototype.Dispose = function(){
+    this.scene.remove(this._circleMain);
+    this.scene.remove(this._circleRingOne);
+    this.scene.remove(this._circleRingTwo);
+    this._circleMain.geometry.dispose();
+    this._circleMain.material.dispose();
+    this._circleMain = null;
+    this._circleRingOne.geometry.dispose();
+    this._circleRingOne.material.dispose();
+    this._circleRingOne = null;
+    this._circleRingTwo.geometry.dispose();
+    this._circleRingTwo.material.dispose();
+    this._circleRingTwo = null;
 }
