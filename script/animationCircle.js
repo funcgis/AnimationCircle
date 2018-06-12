@@ -2,7 +2,7 @@
  * @Author: funcgis 
  * @Date: 2018-06-10 15:22:24 
  * @Last Modified by: chenlong
- * @Last Modified time: 2018-06-12 11:09:36
+ * @Last Modified time: 2018-06-12 12:28:38
  * Three.js Animation Circle Plugin
  */
 
@@ -199,6 +199,8 @@ AnimationCircle.prototype.SetColor = function(color){
  * remove from scene and dispose CircleAnimation Object 
  */
 AnimationCircle.prototype.Dispose = function(){
+    this.StopAnimation();
+    cancelAnimationFrame(this._animate);
     this.scene.remove(this._circleMain);
     this.scene.remove(this._circleRingOne);
     this.scene.remove(this._circleRingTwo);

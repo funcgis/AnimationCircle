@@ -74,7 +74,7 @@
 
 			//tested
 			function changeCircleRotation(){
-				animationCircleBlue.SetRotation(new THREE.Vector3( 0, 1, 0));
+				animationCircleBlue.SetRotation(new THREE.Vector3( 0, 2, 0));
 			}
 
 			//tested
@@ -103,6 +103,33 @@
 					ifStop = false;
 				}	
 			}
+			
+			//tested
+			function releaseCircleAnimation(){
+				animationCircleRed.Dispose();
+				animationCircleGreen.Dispose();
+				animationCircleBlue.Dispose();
+			}
+
+			//tested
+			var performanceNum = 10;
+			function performanceTesting(){
+				var randPostion = function(){
+					return 5-(Math.random()*10);//-5~5
+				}
+				var randRotation = function(){
+					return (Math.random()*2*Math.PI);//-5~5
+				} 
+				for(var i=0;i<performanceNum;i++){
+					var randRadius = Math.random();
+					var randSpeed = randRadius/10;
+					var randSegments = Math.floor(Math.random()*62+3);
+					var randColor = new THREE.Color( Math.random(), Math.random(), Math.random() );
+					var animationCircleI = new AnimationCircle(scene,renderer, camera,new THREE.Vector3( randPostion(), randPostion(), randPostion()),
+					new THREE.Vector3( randRotation(), randRotation(), randRotation()),randRadius,randSegments,randColor,randSpeed);
+					animationCircleI.BeginAnimation();
+				}
+			}
 		</script>
 
 		<div id="operations">
@@ -113,6 +140,8 @@
 			<input type="button" value="改变半径" onclick="changeCircleRadius()"></input>
 			<input type="button" value="改变节点数" onclick="changeCircleSegments()"></input>
 			<input type="button" value="开始\结束 动画" onclick="beginOrStopAnimation()"></input>
+			<input type="button" value="析构对象" onclick="releaseCircleAnimation()"></input>
+			<input type="button" value="性能测试" onclick="performanceTesting()"></input>
 		</div>
 	</body>
 </html>
