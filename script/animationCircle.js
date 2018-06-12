@@ -2,7 +2,7 @@
  * @Author: funcgis 
  * @Date: 2018-06-10 15:22:24 
  * @Last Modified by: chenlong
- * @Last Modified time: 2018-06-12 10:44:58
+ * @Last Modified time: 2018-06-12 10:48:46
  * Three.js Animation Circle Plugin
  */
 
@@ -85,7 +85,7 @@ var AnimationCircle = function(scene, renderer, camera, position, rotation, radi
     //Circle Animation function
     this._animate = function(){
         requestAnimationFrame( that._animate );
-        stats.begin();
+        // stats.begin();
         //do animate
         if(that._ifAnimate){
             if(that._circleRingOne.geometry.boundingSphere.radius<that.radius){
@@ -112,7 +112,7 @@ var AnimationCircle = function(scene, renderer, camera, position, rotation, radi
             }
         }
         renderer.render( that.scene, that.camera );
-        stats.end();
+        // stats.end();
     };
 
     //init Circle Animation

@@ -10,7 +10,7 @@
 	</head>
 	<body>
 		<script src="js/three.js"></script>
-		<script src="js/stats.min.js"></script>
+		<!-- <script src="js/stats.min.js"></script> -->
 		<script src="js/OrbitControls.js"></script>
 		<script src="script/animationCircle.js"></script>
 		<script>
@@ -33,14 +33,14 @@
 			var orbitControls = new THREE.OrbitControls(camera);
      		orbitControls.autoRotate = true
 			
-			//屏幕面板
-			container = document.createElement( 'div' );
-			document.body.appendChild( container );
-			container.appendChild( renderer.domElement );
+			// //屏幕面板
+			// container = document.createElement( 'div' );
+			// document.body.appendChild( container );
+			// container.appendChild( renderer.domElement );
 
-			//显示帧率
-			stats = new Stats();
-			container.appendChild( stats.dom );
+			// //显示帧率
+			// stats = new Stats();
+			// container.appendChild( stats.dom );
 
 			//渲染循环
 			function render() {
