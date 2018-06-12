@@ -1,8 +1,8 @@
 /*
  * @Author: funcgis 
  * @Date: 2018-06-10 15:22:24 
- * @Last Modified by: funcgis
- * @Last Modified time: 2018-06-11 22:36:32
+ * @Last Modified by: chenlong
+ * @Last Modified time: 2018-06-12 09:59:12
  * Three.js Animation Circle Plugin
  */
 
@@ -42,16 +42,16 @@ var AnimationCircle = function(scene, renderer, camera, position, rotation, radi
         var circleMainGeometry = new THREE.CircleBufferGeometry( this.radius, this.segments );
         var circleRingOneGeometry = new THREE.CircleBufferGeometry( 0.001, this.segments );
         var circleRingTwoGeometry = new THREE.CircleBufferGeometry( this.radius/2, this.segments );
-        this._materialMain = new THREE.MeshBasicMaterial( { color: color, opacity: 0.3, transparent: true, side: THREE.DoubleSide} );
-        this._materialRingOne = new THREE.MeshBasicMaterial( { color: color, opacity: 0, transparent: true, side: THREE.DoubleSide} );
-        this._materialRingTwo = new THREE.MeshBasicMaterial( { color: color, opacity: 0, transparent: true, side: THREE.DoubleSide} );
+        var materialMain = new THREE.MeshBasicMaterial( { color: color, opacity: 0.3, transparent: true, side: THREE.DoubleSide} );
+        var materialRingOne = new THREE.MeshBasicMaterial( { color: color, opacity: 0, transparent: true, side: THREE.DoubleSide} );
+        var materialRingTwo = new THREE.MeshBasicMaterial( { color: color, opacity: 0, transparent: true, side: THREE.DoubleSide} );
 
-        this._circleMain = new THREE.Mesh( circleMainGeometry, this._materialMain );
+        this._circleMain = new THREE.Mesh( circleMainGeometry, materialMain );
 
-        this._circleRingOne = new THREE.Mesh( circleRingOneGeometry, this._materialRingOne );
+        this._circleRingOne = new THREE.Mesh( circleRingOneGeometry, materialRingOne );
         this._circleRingOne.material.opacity = 0;
 
-        this._circleRingTwo = new THREE.Mesh( circleRingTwoGeometry, this._materialRingTwo );
+        this._circleRingTwo = new THREE.Mesh( circleRingTwoGeometry, materialRingTwo );
         this._circleRingTwo.material.opacity = 0;
         
         this._circleMain.position.set(this.position.x,this.position.y,this.position.z);
@@ -61,18 +61,17 @@ var AnimationCircle = function(scene, renderer, camera, position, rotation, radi
         this.scene.add( this._circleMain );
         this.scene.add( this._circleRingOne );
         this.scene.add( this._circleRingTwo );
-
-        console.log(this._circleMain);
     };
 
     var that = this;
     //Circle Animation function
     this._animate = function(){
         requestAnimationFrame( that._animate );
+        // stats.begin();
         //do animate
         if(that._ifAnimate){
             if(that._circleRingOne.geometry.boundingSphere.radius<that.radius){
-                var radiusOne = that._circleRingOne.geometry.boundingSphere.radius + speed;
+                var radiusOne = that._circleRingOne.geometry.boundingSphere.radius + that.speed;
                 that._circleRingOne.geometry.dispose ()
                 that._circleRingOne.geometry = new THREE.CircleBufferGeometry( radiusOne, that.segments );
                 that._circleRingOne.material.opacity = 1-radiusOne/that.radius;
@@ -83,7 +82,7 @@ var AnimationCircle = function(scene, renderer, camera, position, rotation, radi
                 that._circleRingOne.material.opacity = 1;
             }
             if(that._circleRingTwo.geometry.boundingSphere.radius<that.radius){
-                var radiusTwo = that._circleRingTwo.geometry.boundingSphere.radius + speed;
+                var radiusTwo = that._circleRingTwo.geometry.boundingSphere.radius + that.speed;
                 that._circleRingTwo.geometry.dispose ()
                 that._circleRingTwo.geometry = new THREE.CircleBufferGeometry( radiusTwo, that.segments );
                 that._circleRingTwo.material.opacity = 1-radiusTwo/that.radius;
@@ -95,6 +94,7 @@ var AnimationCircle = function(scene, renderer, camera, position, rotation, radi
             }
         }
         renderer.render( that.scene, that.camera );
+        // stats.end();
     };
 
     //init Circle Animation

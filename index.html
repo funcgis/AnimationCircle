@@ -11,6 +11,7 @@
 	<body>
 		<script src="js/three.js"></script>
 		<!-- <script src="js/stats.min.js"></script> -->
+		<script src="js/OrbitControls.js"></script>
 		<script src="script/animationCircle.js"></script>
 		<script>
 			var scene = new THREE.Scene();
@@ -21,21 +22,16 @@
 			camera.lookAt(scene.position);
 			scene.add(camera);
 
-			var renderer = new THREE.WebGLRenderer();
+			var renderer = new THREE.WebGLRenderer({
+				antialias: true
+			});
+			renderer.setClearColor(0xffffff);
 			renderer.setSize( window.innerWidth, window.innerHeight*0.9 );
 			document.body.appendChild( renderer.domElement );
 
-			//创建圆，并开始动画
-			var animationCircleRed = new AnimationCircle(scene,renderer, camera,new THREE.Vector3( 0, 3, 0),new THREE.Vector3( 0, 0, 0),1,64,0xFF0017,0.01);
-			animationCircleRed.BeginAnimation();
-			
-
-			var animationCircleGreen = new AnimationCircle(scene,renderer, camera,new THREE.Vector3( 3, 0, 0),new THREE.Vector3( 0, 0, 0),1,64,0x81C951,0.02);
-			animationCircleGreen.BeginAnimation();
-
-
-			var animationCircleBlue = new AnimationCircle(scene,renderer, camera,new THREE.Vector3( 0, 0, 3),new THREE.Vector3( 0, 0, 0),1,64,0x398DEE,0.015);
-			animationCircleBlue.BeginAnimation();
+			//旋转相机
+			var orbitControls = new THREE.OrbitControls(camera);
+     		orbitControls.autoRotate = true
 			
 			// //屏幕面板
 			// container = document.createElement( 'div' );
@@ -45,50 +41,59 @@
 			// //显示帧率
 			// stats = new Stats();
 			// container.appendChild( stats.dom );
-			// var animate = function () {
-			// 	requestAnimationFrame( animate );
 
-			// 	renderer.render( scene, camera );
-			// };
+			//渲染循环
+			function render() {
+				// 渲染，即摄像机拍下此刻的场景
+				renderer.render(scene, camera);
+				requestAnimationFrame(render);
+			}
 
-			// animate();
+			//API test
 
-			renderer.render( scene, camera );
+			//创建圆，并开始动画
+			var animationCircleRed = new AnimationCircle(scene,renderer, camera,new THREE.Vector3( -2, 0, 0),new THREE.Vector3( 0, 0, 0),1,64,0xFF0017,0.01);
+			animationCircleRed.BeginAnimation();
+			
+
+			var animationCircleGreen = new AnimationCircle(scene,renderer, camera,new THREE.Vector3( 0, 0, 0),new THREE.Vector3( 0, 0, 0),1,64,0x81C951,0.02);
+			animationCircleGreen.BeginAnimation();
 
 
-			//功能函数测试
-
-
+			var animationCircleBlue = new AnimationCircle(scene,renderer, camera,new THREE.Vector3( 2, 0, 0),new THREE.Vector3( 0, 0, 0),1,64,0x398DEE,0.015);
+			animationCircleBlue.BeginAnimation();
+				
+			//tested
 			function changCircleColor(){
 				animationCircleRed.SetColor( new THREE.Color( 0xDC06F1 ));
 			}
 
-			//已测试
+			//tested
 			function changeCirclePosition(){
-				animationCircleGreen.SetPosition(new THREE.Vector3( 3, 0, 3));
+				animationCircleGreen.SetPosition(new THREE.Vector3( 0, 3, 0));
 			}
 
-			//已测试
+			//tested
 			function changeCircleRotation(){
 				animationCircleBlue.SetRotation(new THREE.Vector3( 0, 1, 0));
 			}
 
-			//已测试
+			//tested
 			function changeAnimationSpeed(){
 				animationCircleRed.SetSpeed(0.03);
 			}
 
-			//已测试
+			//tested
 			function changeCircleRadius(){
 				animationCircleGreen.SetRadius(0.5);
 			}
 
-			//已测试
+			//tested
 			function changeCircleSegments(){
 				animationCircleRed.SetSegments(10);
 			}
 			
-			//已测试
+			//tested
 			function beginOrStopAnimation(){
 				animationCircleGreen.StopAnimation();
 			}
