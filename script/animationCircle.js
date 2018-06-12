@@ -2,7 +2,7 @@
  * @Author: funcgis 
  * @Date: 2018-06-10 15:22:24 
  * @Last Modified by: chenlong
- * @Last Modified time: 2018-06-12 10:48:46
+ * @Last Modified time: 2018-06-12 11:09:36
  * Three.js Animation Circle Plugin
  */
 
@@ -29,13 +29,10 @@ var AnimationCircle = function(scene, renderer, camera, position, rotation, radi
     this.rotation = rotation;
 
     this._ifAnimate = false;
+    this._ifAnimating = false;
     this._circleMain = null;
     this._circleRingOne = null;
     this._circleRingTwo = null;
-
-    this._materialMain = null;
-    this._materialRingOne = null;
-    this._materialRingTwo = null;
 
     //init Circle Animation Objects
     this._init = function(){
@@ -87,7 +84,7 @@ var AnimationCircle = function(scene, renderer, camera, position, rotation, radi
         requestAnimationFrame( that._animate );
         // stats.begin();
         //do animate
-        if(that._ifAnimate){
+        if(that._ifAnimating){
             if(that._circleRingOne.geometry.boundingSphere.radius<that.radius){
                 var radiusOne = that._circleRingOne.geometry.boundingSphere.radius + that.speed;
                 that._circleRingOne.geometry.dispose ()
@@ -123,15 +120,20 @@ var AnimationCircle = function(scene, renderer, camera, position, rotation, radi
  * Begin Animation
  */
 AnimationCircle.prototype.BeginAnimation = function(){
-    this._animate();
-    this._ifAnimate = true;
+    if(!this._ifAnimating){
+        if(!this._ifAnimate){
+            this._animate();
+            this._ifAnimate = true;
+        }
+        this._ifAnimating = true;    
+    }
 }
 
 /**
  * Stop Animation
  */
 AnimationCircle.prototype.StopAnimation = function(){
-    this._ifAnimate = false;
+    this._ifAnimating = false;
     this._circleRingOne.material.opacity = 0;
     this._circleRingTwo.material.opacity = 0;
 }

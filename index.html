@@ -44,7 +44,6 @@
 
 			//渲染循环
 			function render() {
-				// 渲染，即摄像机拍下此刻的场景
 				renderer.render(scene, camera);
 				requestAnimationFrame(render);
 			}
@@ -92,10 +91,17 @@
 			function changeCircleSegments(){
 				animationCircleRed.SetSegments(10);
 			}
-			
+
 			//tested
+			var ifStop = false;
 			function beginOrStopAnimation(){
-				animationCircleGreen.StopAnimation();
+				if(!ifStop){
+					animationCircleGreen.StopAnimation();
+					ifStop = true;
+				}else{
+					animationCircleGreen.BeginAnimation();
+					ifStop = false;
+				}	
 			}
 		</script>
 
