@@ -1,7 +1,7 @@
 /*
  * @Author: funcgis 
  * @Date: 2018-06-10 15:22:24 
- * @Last Modified by: chenlong
+ * @Last Modified by: funcgis
  * @Last Modified time: 2018-06-12 15:20:03
  * Three.js Animation Circle Plugin
  */
